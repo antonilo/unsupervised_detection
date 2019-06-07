@@ -48,7 +48,6 @@ def compute_mae(gt_mask, pred_mask_f, threshold=0.1):
     return mae
 
 
-
 def _test_masks():
     learner = AdversarialLearner()
     learner.setup_inference(FLAGS, aug_test=False)
@@ -109,14 +108,7 @@ def _test_masks():
                                               "frame_{:08d}.png".format(len(CategoryIou[category])))
 
                     preprocessed_bgr = postprocess_image(inference['input_image'][batch_num])
-                    preprocessed_mask = postprocess_mask(out_mask)#(inference['gt_masks'][batch_num]>0.01)*1.0)
-
-                    # Stich images
-                    #results = np.hstack((
-                    #    preprocessed_bgr,
-                    #    preprocessed_mask,
-                    #    # recall that now the gt_flow is an image
-                    #    utils.postprocess_image(inference['gt_flow'][batch_num])))
+                    preprocessed_mask = postprocess_mask(out_mask)
 
                     # Overlap images
                     results = cv2.addWeighted(preprocessed_bgr, 0.5,

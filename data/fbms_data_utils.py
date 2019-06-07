@@ -6,7 +6,8 @@ The main difference with respect to DAVIS2016 is
 the fact that the data reader returns the number
 of images per category (used to explain away the
 large class imbalance of this dataset in score computation).
-Before using it, you need to run a preprocessing step (See line 105).
+After the first use, you can speed up the code by commenting
+pre-processing away (See line 109).
 """
 import numpy as np
 import os
@@ -104,23 +105,24 @@ class DirectoryIterator(object):
             goal_annotation_fnames = [f.split('.')[0] + '.jpg' for f in annotation_fnames]
             goal_annotation_fnames = [os.path.join(data_dir, folder_name, 'GroundTruth', f) for f \
                                  in goal_annotation_fnames]
-            # ATTENTION: Run the commented part once to preprocess GT
-            #annotation_fnames = [os.path.join(data_dir, folder_name, 'GroundTruth', f) for f \
-            #                     in annotation_fnames]
-            #for i in range(len(goal_annotation_fnames)):
-            #    mask = cv2.imread(annotation_fnames[i])
-            #    mask = cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY)
-            #    mask = mask / 255.0
-            #    if type_weird:
-            #        mask[mask>0.99] = 0.0
-            #    if 'marple7' == folder_name:
-            #        mask = mask>0.05
-            #    elif 'marple2' == folder_name:
-            #        mask = mask>0.4
-            #    else:
-            #        mask = mask>0.1
-            #    mask = np.asarray(mask*255, dtype=np.uint8)
-            #    cv2.imwrite(goal_annotation_fnames[i], mask)
+
+            # NOTE: Run the commented part only once to preprocess GT
+            annotation_fnames = [os.path.join(data_dir, folder_name, 'GroundTruth', f) for f \
+                                 in annotation_fnames]
+            for i in range(len(goal_annotation_fnames)):
+                mask = cv2.imread(annotation_fnames[i])
+                mask = cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY)
+                mask = mask / 255.0
+                if type_weird:
+                    mask[mask>0.99] = 0.0
+                if 'marple7' == folder_name:
+                    mask = mask>0.05
+                elif 'marple2' == folder_name:
+                    mask = mask>0.4
+                else:
+                    mask = mask>0.1
+                mask = np.asarray(mask*255, dtype=np.uint8)
+                cv2.imwrite(goal_annotation_fnames[i], mask)
 
             # Create offsets
             numbers = np.array(numbers) - np.min(numbers)

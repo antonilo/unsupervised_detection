@@ -27,7 +27,7 @@ gflags.DEFINE_integer('num_threads', 6, 'Number of threads reading and '
 gflags.DEFINE_string('root_dir',   "/home/ycyang/Datasets/SegTrackv2", 'File containing'
                      ' tf recorded validation experiments')
 gflags.DEFINE_string('train_partition', 'trainval', 'Training Partition to be used')
-gflags.DEFINE_string('dataset', 'SEGTRACK', 'Either SEGTRACK or FBMS or DAVIS2016')
+gflags.DEFINE_string('dataset', 'DAVIS2016', 'Either SEGTRACK or FBMS or DAVIS2016')
 gflags.DEFINE_string('recover_ckpt', "./tests/model_tests/aug_davis_pretrain_normalized_flow/model-175", 'File containing'
                      ' the checkpoint of the recover (inpaint) network')
 gflags.DEFINE_string('flow_ckpt', "./models/PWCNet/checkpoint/pwcnet-lg-6-2-multisteps-chairsthingsmix/pwcnet.ckpt-595000", 'File containing'
