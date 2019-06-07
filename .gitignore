@@ -1,0 +1,4 @@
+./results/*
+*.pyc
+*/.ropeproject/*
+*.ropeproject/*
