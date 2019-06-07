@@ -35,19 +35,22 @@ This code was tested with the following packages. Note that previous version of 
 * python-gflags
 * Keras 2.2.4
 
-
 ### Datasets
 
 We have used three publicly available dataset for our experiments:
 
 [DAVIS 2016](https://davischallenge.org/davis2016/browse.html) | [FBMS59](https://lmb.informatik.uni-freiburg.de/resources/datasets/) | [SegTrackV2](https://web.engr.oregonstate.edu/~lif/SegTrack2/dataset.html)
 
-The datasets can be used without any prior pre-processing.
+The datasets can be used without any pre-processing.
 
+### Downloads
 
-## Training
+### Training
+
+### Testing
+
 
 ### Acknowledgment
 
-Some of the code belonging to this folder has been inspired by the following repositories [SfMLearner](https://github.com/tinghuiz/SfMLearner), [TFOptflow](https://github.com/philferriere/tfoptflow), [Generative_Inpaiting](https://github.com/JiahuiYu/generative_inpainting). We would like to thank all the authors of those repositories.
+Some of the code belonging to this project has been inspired by the following repositories [SfMLearner](https://github.com/tinghuiz/SfMLearner), [TFOptflow](https://github.com/philferriere/tfoptflow), [Generative_Inpaiting](https://github.com/JiahuiYu/generative_inpainting). We would like to thank all the authors of these repositories.
 
