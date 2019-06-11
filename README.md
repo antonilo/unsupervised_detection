@@ -53,10 +53,10 @@ Additionally, you can find our trained models in the [project webpage](http://rp
 ### Training
 
 Once you have downloaded the datasets (at least one of the three), you can start training the model.
-All the required flags (and their defaults) are explained in the [common_flags.py](./common_flags.py) file.
+All the required flags (and their defaults) are explained in the [common\_flags.py](./common_flags.py) file.
 
 The folder [scripts](./scripts) contains an example of how to train a model on the DAVIS dataset.
-To start training, edit the file [train_DAVIS2016.sh](./scripts/train_DAVIS2016) and add there the paths to the dataset and to the PWCNet checkpoint. After that you should be able to start training with the following command:
+To start training, edit the file [train\_DAVIS2016.sh](./scripts/train_DAVIS2016) and add there the paths to the dataset and to the PWCNet checkpoint. After that you should be able to start training with the following command:
 ```bash
 bash ./scripts/train_DAVIS2016.sh
 ```
@@ -75,7 +75,9 @@ Although not strictly required, the recover pre-training significantly speeds up
 
 ### Testing
 
-You can test a trained model with the function [test_generator.py](./test_generator.py). An example is provided for the DAVIS 2016 dataset in the [scripts](./scripts) folder. To run it, edit the file [test_DAVIS2016_raw.sh](./scripts/test_DAVIS2016_raw.sh) with the paths to the dataset, the optical flow and the model checkpoint. After that, you can test the model with the following command:
+You can test a trained model with the function [test\_generator.py](./test_generator.py).
+An example is provided for the DAVIS 2016 dataset in the [scripts](./scripts) folder.
+To run it, edit the file [test\_DAVIS2016\_raw.sh](./scripts/test_DAVIS2016_raw.sh) with the paths to the dataset, the optical flow and the model checkpoint. After that, you can test the model with the following command:
 ```bash
 bash ./scripts/test_DAVIS2016_raw.sh
 ```
@@ -84,7 +86,7 @@ bash ./scripts/test_DAVIS2016_raw.sh
 
 Raw predictions are post-processed to increase model accuracy. In particular, the post-processing involves mainly two steps: (i) averaging the predictions over different time shifts between the first and second image, as well as for multiple central crops, and (ii) Conditional Random Fields (CRF) of the average predictions and best candidate mask selection. 
 
-To generate predictions over multiple time steps and crops for the DAVIS 2016 dataset, please use the [generate_buffer_DAVIS2016.sh](./scripts/generate_buffer_DAVIS2016.sh) script. This can be done by editing the script to add the path to the dataset, the PWCNet and the trained model checkpoints. 
+To generate predictions over multiple time steps and crops for the DAVIS 2016 dataset, please use the [generate\_buffer\_DAVIS2016.sh](./scripts/generate_buffer_DAVIS2016.sh) script. This can be done by editing the script to add the path to the dataset, the PWCNet and the trained model checkpoints. 
 
 After predictions buffers are generated, please use the [post-processing script](./post_processing) to compute final predictions.
 
