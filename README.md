@@ -56,7 +56,7 @@ Once you have downloaded the datasets (at least one of the three), you can start
 All the required flags (and their defaults) are explained in the [common\_flags.py](./common_flags.py) file.
 
 The folder [scripts](./scripts) contains an example of how to train a model on the DAVIS dataset.
-To start training, edit the file [train\_DAVIS2016.sh](./scripts/train_DAVIS2016) and add there the paths to the dataset and to the PWCNet checkpoint. After that you should be able to start training with the following command:
+To start training, edit the file [train\_DAVIS2016.sh](./scripts/train_DAVIS2016.sh) and add there the paths to the dataset and to the PWCNet checkpoint. After that you should be able to start training with the following command:
 ```bash
 bash ./scripts/train_DAVIS2016.sh
 ```
