@@ -13,9 +13,9 @@ for test_shift in $(seq -$max_shift $max_shift); do
         --dataset=DAVIS2016 \
         --ckpt_file=$CKPT_FILE \
         --root_dir=$DATASET_DIR \
-				--flow_ckpt=$PWC_CKPT_FILE \
-				--test_temporal_shift=$test_shift \
-				--test_partition='val' \
+	--flow_ckpt=$PWC_CKPT_FILE \
+	--test_temporal_shift=$test_shift \
+	--test_partition='val' \
         --generate_visualization=True \
         --test_save_dir=/tmp/davis_2016_buffer/buffer_$test_shift
         fi
