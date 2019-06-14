@@ -221,7 +221,7 @@ class AdversarialLearner(object):
             update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
 
             # The can_flag puts some noise into the gradients if the latter are vanishing.
-            # This usually happen when the generator encounters the local minimum of 
+            # This usually happen when the generator encounters the local minimum of
             # masking everything or masking nothing.
             self.train_generator_op, self.generator_var_grads = train_op(loss=losses['generator'],
                                                var_list=generator_vars,
@@ -529,7 +529,7 @@ class AdversarialLearner(object):
            This improves the results while doing ensembling.
            Requires batch size to be one (automatically handled)
         """
-        test_crops = [0.8, 1.0]
+        test_crops = [0.85, 0.9, 0.95, 1.0]
         print("Evaluating the following crops {}".format(test_crops))
         with tf.name_scope("data_loading"):
             if self.config.dataset == 'DAVIS2016':

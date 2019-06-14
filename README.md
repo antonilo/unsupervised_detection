@@ -84,11 +84,11 @@ bash ./scripts/test_DAVIS2016_raw.sh
 
 ### Post-Processing
 
-Raw predictions are post-processed to increase model accuracy. In particular, the post-processing involves mainly two steps: (i) averaging the predictions over different time shifts between the first and second image, as well as for multiple central crops, and (ii) Conditional Random Fields (CRF) of the average predictions and best candidate mask selection. 
+Raw predictions are post-processed to increase model accuracy. In particular, the post-processing is composed of two steps: (i) averaging the predictions over different time shifts between the first and second image, as well as for multiple central crops, and (ii) Conditional Random Fields (CRF) of the average predictions and best candidate mask selection. 
 
 To generate predictions over multiple time steps and crops for the DAVIS 2016 dataset, please use the [generate\_buffer\_DAVIS2016.sh](./scripts/generate_buffer_DAVIS2016.sh) script. This can be done by editing the script to add the path to the dataset, the PWCNet and the trained model checkpoints. 
 
-After predictions buffers are generated, please use the [post-processing script](./post_processing) to compute final predictions.
+After predictions buffers are generated, please use the [post-processing script](./post_processing/post_processing.py) to compute refined predictions.
 
 ### Pre-Computed Results
 
