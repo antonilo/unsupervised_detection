@@ -6,6 +6,8 @@ This repo contains the implementation of the method described in the paper
 
 Published in the International Conference of Computer Vision and Pattern Recognition (CVPR) 2019.
 
+For a brief overview, check out the project [VIDEO](https://youtu.be/01vClielQBw)!
+
 <img src='doc/detect_hawk.gif' width=380>
 
 If you use this code in academic context, please cite the following publication:
