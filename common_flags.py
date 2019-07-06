@@ -26,7 +26,7 @@ gflags.DEFINE_bool('resume_train', False, 'Whether to restore a trained'
 
 # Path Parameters
 gflags.DEFINE_string('root_dir',"/your/path/to/DAVIS_2016", 'Folder containig the evaluation dataset')
-gflags.DEFINE_string('train_partition', 'train', 'Training Partition to be used')
+gflags.DEFINE_string('train_partition', 'trainval', 'Training Partition to be used')
 gflags.DEFINE_string('dataset', 'DAVIS2016', 'Dataset used for evaluation. '
                      ' Either SEGTRACK or FBMS or DAVIS2016')
 gflags.DEFINE_string('recover_ckpt', "", 'Checkpoint of the pre-trained recover.'
