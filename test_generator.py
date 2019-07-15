@@ -81,7 +81,7 @@ def _test_masks():
                 category = inference['img_fname'][batch_num].decode("utf-8").split('/')[-2]
 
                 iou, out_mask = compute_IoU(gt_mask=gt_mask, pred_mask_f=generated_mask)
-                mae = compute_mae(gt_mask=gt_mask, pred_mask_f=generated_mask)
+                mae = compute_mae(gt_mask=gt_mask, pred_mask_f=out_mask)
                 try:
                     CategoryIou[category].append(iou)
                     CategoryMae[category].append(mae)
