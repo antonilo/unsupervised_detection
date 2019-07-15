@@ -42,8 +42,6 @@ def postprocess_mask(mask):
     Returs:
         grayscale image to visualize flow
     """
-    mask = mask - np.min(mask)
-    mask = mask / np.max(mask)
     # We want it in red
     un_normalized = np.asarray(mask * 255.0, np.uint8)
     tile = np.zeros_like(un_normalized, dtype=np.uint8)
@@ -112,3 +110,20 @@ def compute_all_IoU(pred_masks, gt_masks, threshold=0.1):
     final_iou = tf.maximum(IoU, IoU_compl)
 
     return final_iou
+
+def compute_boundary_score(segmentation):
+    """
+    This score indicates how many image borders the segmentation
+    mask occupies. If lower than a threshold, then it indicates foreground,
+    else background. The threshold is generally set to 0.6, which means
+    that to be background, the mask has to (approx.) occupy more than two borders.
+    """
+    H = segmentation.shape[0]
+    W = segmentation.shape[1]
+    up_bord = segmentation[0:2, :]
+    bottom_bord = segmentation[H-2:H, :]
+    left_bord = segmentation[:, 0:2]
+    right_bord = segmentation[:, W-2:W]
+    border_occ = np.sum(up_bord)+np.sum(bottom_bord)+np.sum(left_bord)+np.sum(right_bord)
+    border_occ /= 1.0*(up_bord.size+bottom_bord.size+left_bord.size+right_bord.size)
+    return border_occ

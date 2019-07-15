@@ -7,46 +7,36 @@ import scipy.io as sio
 import tensorflow as tf
 from keras.utils.generic_utils import Progbar
 from models.adversarial_learner import AdversarialLearner
-from models.utils.general_utils import postprocess_mask, postprocess_image
+from models.utils.general_utils import postprocess_mask, postprocess_image, compute_boundary_score
 
 from common_flags import FLAGS
 
 des_width = 640
 des_height = 384
+mask_threshold = 0.6
 
 
 def compute_IoU(gt_mask, pred_mask_f, threshold=0.1):
-    gt_mask = gt_mask > (0.001)
+    gt_mask = gt_mask.astype(np.bool)
     pred_mask = pred_mask_f > threshold
     pred_mask_compl = np.logical_not(pred_mask)
 
-
-    union=float(np.sum(np.logical_or(gt_mask, pred_mask)))
-    if union == 0.0:
-        iou = 0.0
+    boundary_score = compute_boundary_score(pred_mask)
+    if boundary_score < mask_threshold:
+        annotation = pred_mask
     else:
-        iou = np.sum(np.logical_and(gt_mask, pred_mask)) / union
+        annotation = pred_mask_compl
 
-    union_compl=float(np.sum(np.logical_or(gt_mask, pred_mask_compl)))
-    if union_compl == 0.0:
-        iou_compl = 0.0
+    if np.isclose(np.sum(annotation),0) and np.isclose(np.sum(gt_mask),0):
+        return 1
     else:
-        iou_compl = np.sum(np.logical_and(gt_mask, pred_mask_compl)) / union_compl
+        return np.sum((annotation & gt_mask)) / \
+                np.sum((annotation | gt_mask),dtype=np.float32), annotation
 
-    if iou > iou_compl:
-        return iou, pred_mask_f
-    else:
-        return iou_compl, 1.0 - pred_mask_f
 
-def compute_mae(gt_mask, pred_mask_f, threshold=0.1):
-    pred_mask = np.asarray(pred_mask_f > threshold, dtype=np.float32)
-    pred_mask_compl = np.asarray(np.logical_not(pred_mask), dtype=np.float32)
-
-    mae = np.mean(np.abs(gt_mask - pred_mask))
-    mae_compl = np.mean(np.abs(gt_mask - pred_mask_compl))
-    mae = np.minimum(mae, mae_compl)
+def compute_mae(gt_mask, pred_mask_f):
+    mae = np.mean(np.abs(gt_mask - pred_mask_f))
     return mae
-
 
 def _test_masks():
     learner = AdversarialLearner()
