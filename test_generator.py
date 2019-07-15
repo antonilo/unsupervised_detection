@@ -21,6 +21,7 @@ def compute_IoU(gt_mask, pred_mask_f, threshold=0.1):
     pred_mask = pred_mask_f > threshold
     pred_mask_compl = np.logical_not(pred_mask)
 
+    # Compute the score to disambiguate foreground from background
     boundary_score = compute_boundary_score(pred_mask)
     if boundary_score < mask_threshold:
         annotation = pred_mask
