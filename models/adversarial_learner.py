@@ -9,7 +9,7 @@ from keras.utils.generic_utils import Progbar
 from .nets import recover_net, generator_net
 from .utils.loss_utils import charbonnier_loss, train_op
 from .utils.flow_utils import flow_to_image_tf, preprocess_flow_batch
-from .utils.general_utils import compute_all_IoU
+from .utils.general_utils import compute_all_IoU, disambiguate_forw_back
 from .PWCNet.model_pwcnet import ModelPWCNet
 from data.davis2016_data_utils import Davis2016Reader
 from data.fbms_data_utils import FBMS59Reader
@@ -133,10 +133,8 @@ class AdversarialLearner(object):
         # Compute IoU of the generated masks ( for validation only, will not be
         # executed during training)
         all_IoU = compute_all_IoU(pred_masks=generated_masks,
-                                    gt_masks=gt_masks)
+                                  gt_masks=gt_masks)
         sum_IoU = tf.reduce_sum(all_IoU)
-
-        complementary_masks = complementary_masks
 
         # Define now all training losses.
 
@@ -269,7 +267,8 @@ class AdversarialLearner(object):
         tf.summary.image("next_image", self.image_2_batch, max_outputs=1,
                          collections=['step_sum'])
         tf.summary.image("masked_flow",
-                         (flow_to_image_tf(self.flow_gt_batch))*(1.0 - self.generated_masks),
+                         (flow_to_image_tf(self.flow_gt_batch))* \
+                         (1.0 - disambiguate_forw_back(self.generated_masks)),
                          max_outputs=1, collections=['step_sum'])
         tf.summary.image("PWC_Flow",
                          flow_to_image_tf(self.flow_gt_batch),

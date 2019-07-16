@@ -86,7 +86,6 @@ def generate_error_map(image, losses, box_lenght):
 
     return final
 
-
 def tf_iou_computation(gt_masks, pred_masks):
 
     epsilon = tf.constant(1e-8) # To avoid division by zero
