@@ -98,9 +98,11 @@ Our final, post-processed results are available for the DAVIS 2016, FBMS59 and S
 
 ### FAQ
 
-TBA
+_The training loss seems symmetric for the mask and its complementary. How do you tell which one is the foreground and which the background?_
+
+For the training process it is very important to keep this symmetry. Without it the optimum of the training process is not guaranteed to be the separation of independent components anymore. However, to detect whether the masks cover the object or the background, we use the heuristic that background usually occupies more than two boundaries of the image. You can find the corresponding implementation of this heuristic in the function [disambiguate_forw_back](models/utils/general_utils.py#L100).
+
 
 ### Acknowledgment
 
 Some of the code belonging to this project has been inspired by the following repositories [SfMLearner](https://github.com/tinghuiz/SfMLearner), [TFOptflow](https://github.com/philferriere/tfoptflow), [Generative_Inpaiting](https://github.com/JiahuiYu/generative_inpainting). We would like to thank all the authors of these repositories.
-
