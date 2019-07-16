@@ -89,6 +89,7 @@ def generate_error_map(image, losses, box_lenght):
 def tf_iou_computation(gt_masks, pred_masks):
 
     epsilon = tf.constant(1e-8) # To avoid division by zero
+    pred_masks = tf.cast(pred_masks, tf.bool)
     union=tf.reduce_sum(tf.cast(tf.logical_or(gt_masks, pred_masks),
                                 dtype=tf.float32), axis=[1,2,3]) + epsilon
     IoU = tf.reduce_sum(tf.cast(tf.logical_and(gt_masks, pred_masks),
@@ -96,19 +97,20 @@ def tf_iou_computation(gt_masks, pred_masks):
 
     return IoU
 
-def disambiguate_forw_back(pred_masks, pred_masks_compl, scores):
+def disambiguate_forw_back(pred_masks, threshold=0.1):
     border_th = tf.constant(0.6)
-    bord_score = compute_boundary_score_tf(pred_masks)
+    # Might be redundant but makes no assumption 
+    pred_masks = tf.cast(pred_masks > threshold, tf.float32)
+    pred_masks_compl = 1.0 - pred_masks
+    scores = compute_boundary_score_tf(pred_masks)
     scores = tf.reshape(scores, [-1,1,1,1]) < border_th
     scores = tf.cast(scores, tf.float32)
-    forward_masks = bord_score * pred_masks + (1.0 - bord_score) * pred_masks_compl
+    forward_masks = scores * pred_masks + (1.0 - scores) * pred_masks_compl
     return forward_masks
 
 def compute_all_IoU(pred_masks, gt_masks, threshold=0.1):
     gt_masks= gt_masks > 0.01
-    pred_masks = pred_masks > threshold
-    pred_masks_compl = tf.logical_not(pred_masks)
-    object_masks = disambiguate_forw_back(pred_masks, pred_masks_compl)
+    object_masks = disambiguate_forw_back(pred_masks, threshold)
     IoU = tf_iou_computation(gt_masks=gt_masks, pred_masks=object_masks)
     return IoU
 
