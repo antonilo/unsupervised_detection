@@ -97,19 +97,21 @@ def tf_iou_computation(gt_masks, pred_masks):
 
     return IoU
 
-def compute_all_IoU(pred_masks, gt_masks, threshold=0.1):
+def disambiguate_forw_back(pred_masks, pred_masks_compl, scores):
+    border_th = tf.constant(0.6)
+    bord_score = compute_boundary_score_tf(pred_masks)
+    scores = tf.reshape(scores, [-1,1,1,1]) < border_th
+    scores = tf.cast(scores, tf.float32)
+    forward_masks = bord_score * pred_masks + (1.0 - bord_score) * pred_masks_compl
+    return forward_masks
 
-    gt_masks= gt_masks > 0.001
+def compute_all_IoU(pred_masks, gt_masks, threshold=0.1):
+    gt_masks= gt_masks > 0.01
     pred_masks = pred_masks > threshold
     pred_masks_compl = tf.logical_not(pred_masks)
-
-    IoU = tf_iou_computation(gt_masks=gt_masks, pred_masks=pred_masks)
-
-    IoU_compl = tf_iou_computation(gt_masks=gt_masks, pred_masks=pred_masks_compl)
-
-    final_iou = tf.maximum(IoU, IoU_compl)
-
-    return final_iou
+    object_masks = disambiguate_forw_back(pred_masks, pred_masks_compl)
+    IoU = tf_iou_computation(gt_masks=gt_masks, pred_masks=object_masks)
+    return IoU
 
 def compute_boundary_score(segmentation):
     """
@@ -126,4 +128,22 @@ def compute_boundary_score(segmentation):
     right_bord = segmentation[:, W-2:W]
     border_occ = np.sum(up_bord)+np.sum(bottom_bord)+np.sum(left_bord)+np.sum(right_bord)
     border_occ /= 1.0*(up_bord.size+bottom_bord.size+left_bord.size+right_bord.size)
+    return border_occ
+
+def compute_boundary_score_tf(segmentation):
+    """
+    Same as above but in tensorflow"
+    """
+    height, width = segmentation.get_shape().as_list()[1:3]
+    up_bord = segmentation[:,0:2, :, :]
+    bottom_bord = segmentation[:,height-2:height,:,:]
+    width_bord_size = 2.0 * width
+    left_bord = segmentation[:, :, 0:2, :]
+    right_bord = segmentation[:, :, width-2:width, :]
+    height_bord_size = 2.0 * height
+    border_occ = tf.reduce_sum(up_bord, axis=[1,2,3]) + \
+                 tf.reduce_sum(bottom_bord, axis=[1,2,3]) + \
+                 tf.reduce_sum(left_bord, axis=[1,2,3]) + \
+                 tf.reduce_sum(right_bord, axis=[1,2,3]) # [B]
+    border_occ /= (2*width_bord_size + 2*height_bord_size)
     return border_occ
