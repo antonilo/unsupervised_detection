@@ -98,7 +98,10 @@ Our final, post-processed results are available for the DAVIS 2016, FBMS59 and S
 
 ### FAQ
 
-TBA
+_The training loss seems symmetric for the mask and its complementary. How do you tell which one is the foreground and which the background?_
+
+For the training process, it is very important to keep this symmetry. Without it, the optimization process is not guaranteed to converge to the object masks anymore. To tell apart the object mask from the background, we use the heuristic that background usually occupies more than two boundaries of the image. You can find the corresponding implementation in the function [disambiguate_forw_back](models/utils/general_utils.py#L100)
+
 
 ### Acknowledgment
 
