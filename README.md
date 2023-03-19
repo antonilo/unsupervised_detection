@@ -25,11 +25,18 @@ Visit the [project webpage](http://rpg.ifi.uzh.ch/unsupervised_detection.html) f
 
 ## Running the code
 
+### Quick test the inference without any preparations
+conda case;
+```bash
+conda create -f environment.yml
+bash ./scripts/test_DAVIS2016_raw.sh
+```
+
 ### Prerequisites
 
 This code was tested with the following packages. Note that previous version of them might work but are untested.
 
-* Ubuntu 18.04
+* Ubuntu 18.04/20.04
 * Python3
 * Tensorflow 1.13.1
 * python-opencv
