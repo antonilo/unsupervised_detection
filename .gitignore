@@ -3,3 +3,5 @@ results/*
 */.ropeproject/*
 *.ropeproject/*
 download/*
+.ipynb_checkpoints/
+*~

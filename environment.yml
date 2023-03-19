@@ -8,3 +8,4 @@ dependencies:
   - cudatoolkit=10.1
   - python-gflags
   - keras=2.2.4
+  - gdown

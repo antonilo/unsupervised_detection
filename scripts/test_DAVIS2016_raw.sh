@@ -27,6 +27,10 @@ if [ ! -e ${DATASET_FILE} ]; then
     unzip DAVIS-data.zip
     rm DAVIS-data.zip
 fi
+if [ ! -f ${PWC_CKPT_FILE} ]; then
+    echo "[INFO] no pwc checkpoint file found. start downloading it."
+    gdown --folder "https://drive.google.com/drive/folders/1gtGx_6MjUQC5lZpl6-Ia718Y_0pvcYou"
+fi
 echo "[INFO] finished downloading."
 
 
