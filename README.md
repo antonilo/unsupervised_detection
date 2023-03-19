@@ -28,7 +28,7 @@ Visit the [project webpage](http://rpg.ifi.uzh.ch/unsupervised_detection.html) f
 ### Quick test the inference without any preparations
 conda case;
 ```bash
-conda create -f environment.yml
+conda env create -f environment.yml
 bash ./scripts/test_DAVIS2016_raw.sh
 ```
 
