@@ -31,6 +31,10 @@ conda case;
 conda env create -f environment.yml
 bash ./scripts/test_DAVIS2016_raw.sh
 ```
+you can even run inference for no annotated video.
+```bash
+bash ./scripts/test_video.sh
+```
 
 ### Prerequisites
 
@@ -89,6 +93,15 @@ An example is provided for the DAVIS 2016 dataset in the [scripts](./scripts) fo
 To run it, edit the file [test\_DAVIS2016\_raw.sh](./scripts/test_DAVIS2016_raw.sh) with the paths to the dataset, the optical flow and the model checkpoint. After that, you can test the model with the following command:
 ```bash
 bash ./scripts/test_DAVIS2016_raw.sh
+```
+
+#### Testing for your own video
+You can even run the inference on your video without annotation.
+1. put your video in download/video/.
+2. edit VIDEO_FILE=<your video file> in scripts/test_video.sh.
+3. run below;
+```bash
+bash ./scripts/test_video.sh
 ```
 
 ### Post-Processing

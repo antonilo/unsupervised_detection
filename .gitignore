@@ -6,3 +6,4 @@ download/*
 *.ipynb
 .ipynb_checkpoints/
 *~
+*.orig
