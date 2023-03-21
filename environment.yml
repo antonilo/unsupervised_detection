@@ -1,0 +1,12 @@
+name: contextual-information-separation
+channels:
+  - conda-forge
+dependencies:
+  - python=3
+  - tensorflow-gpu=1.13.1
+  - opencv
+  - cudatoolkit=10.1
+  - python-gflags
+  - keras=2.2.4
+  - gdown
+  - pillow

@@ -1,4 +1,9 @@
-./results/*
+results/*
 *.pyc
 */.ropeproject/*
 *.ropeproject/*
+download/*
+*.ipynb
+.ipynb_checkpoints/
+*~
+*.orig
