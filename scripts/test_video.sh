@@ -37,8 +37,9 @@ mkdir -p ${DATASET_DIR}
 	cd ${DATASET_DIR}
 	gdown --id "1fTzvd1SjZmrvWoPkFgHLSXFUVmMnOESg" -O ${VIDEO_FILE}
     fi
-    echo "[INFO] finished downloading."
 )
+echo "[INFO] finished downloading."
+
 
 echo "[INFO] start creating data from your video..."
 python3 ${SCRIPT_DIR}/create_data_frvideo.py ${VIDEO_FILE}
