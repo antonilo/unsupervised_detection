@@ -9,9 +9,9 @@ SCRIPT_DIR=$(dirname "$(realpath "$0")")
 # parameters
 DOWNLOAD_DIR="${SCRIPT_DIR}/../download"
 CKPT_FILE="${DOWNLOAD_DIR}/unsupervised_detection_models/davis_best_model/model.best"
-DATASET_FILE="${DOWNLOAD_DIR}/video/todaiura_traffic.MOV"
+DATASET_FILE="${DOWNLOAD_DIR}/video/todaiura/todaiura_traffic.MOV"
 PWC_CKPT_FILE="${DOWNLOAD_DIR}/pwcnet-lg-6-2-multisteps-chairsthingsmix/pwcnet.ckpt-595000.data-00000-of-00001"
-RESULT_DIR="{SCRIPT_DIR}/../results"
+RESULT_DIR="{SCRIPT_DIR}/../results/video/todaiura"
 
 
 echo "[INFO] start downloading data..."
@@ -43,5 +43,5 @@ python3 test_video.py \
 --test_temporal_shift=1 \
 --root_dir=$DATASET_FILE \
 --generate_visualization=True \
---test_save_dir=${RESULT_DIR}/video
+--test_save_dir=${RESULT_DIR}
 echo "[INFO] finished the test."
