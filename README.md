@@ -29,6 +29,7 @@ Visit the [project webpage](http://rpg.ifi.uzh.ch/unsupervised_detection.html) f
 conda case;
 ```bash
 conda env create -f environment.yml
+conda activate contextual-information-separation
 bash ./scripts/test_DAVIS2016_raw.sh
 ```
 you can even run inference for no annotated video.

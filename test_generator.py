@@ -29,7 +29,7 @@ def compute_IoU(gt_mask, pred_mask_f, threshold=0.1):
         annotation = pred_mask_compl
 
     if np.isclose(np.sum(annotation),0) and np.isclose(np.sum(gt_mask),0):
-        return 1
+        return 1, annotation
     else:
         return np.sum((annotation & gt_mask)) / \
                 np.sum((annotation | gt_mask),dtype=np.float32), annotation
