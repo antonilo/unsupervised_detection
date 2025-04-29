@@ -29,9 +29,14 @@ Visit the [project webpage](http://rpg.ifi.uzh.ch/unsupervised_detection.html) f
 conda case;
 ```bash
 conda env create -f environment.yml
-bash ./scripts/test_DAVIS2016_raw.sh
+conda activate contextual-information-separation
+python ./scripts/test_DAVIS2016_raw.py
 ```
-you can even run inference for no annotated video.
+or for FBMS59 data,
+```bash
+python ./scripts/test_FBMS59_raw.py
+```
+you can even run inference for non annotated video.
 ```bash
 bash ./scripts/test_video.sh
 ```
@@ -58,6 +63,14 @@ The datasets can be used without any pre-processing.
 
 ### Downloads
 
+You can download all necessary files just running
+```bash
+python ./scripts/test_DAVIS2016_raw.py
+or
+python ./scripts/test_FBMS59_raw.py
+```
+
+But you can also download manually by following below steps.
 We generate optical flows with a tensorflow implementation of PWCNet, which is an adapted version of [this repository](https://github.com/philferriere/tfoptflow).
 To compute flows, please download the model checkpoint of PWCNet we used for our experiments, available at [this link](https://drive.google.com/open?id=1gtGx_6MjUQC5lZpl6-Ia718Y_0pvcYou).
 
@@ -92,7 +105,7 @@ You can test a trained model with the function [test\_generator.py](./test_gener
 An example is provided for the DAVIS 2016 dataset in the [scripts](./scripts) folder.
 To run it, edit the file [test\_DAVIS2016\_raw.sh](./scripts/test_DAVIS2016_raw.sh) with the paths to the dataset, the optical flow and the model checkpoint. After that, you can test the model with the following command:
 ```bash
-bash ./scripts/test_DAVIS2016_raw.sh
+python ./scripts/test_DAVIS2016_raw.py
 ```
 
 #### Testing for your own video
